@@ -1,6 +1,11 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import dao.DaoVisite;
 
@@ -9,6 +14,7 @@ public class Medecin {
 	private String nom;
 	private String login;
 	private String pwd;
+	private int numSalle;
 
 	public Medecin(String nom, String login, String pwd, int numSalle) {
 		super();

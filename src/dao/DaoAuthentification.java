@@ -1,17 +1,16 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.ResultSet;
-import com.mysql.jdbc.Statement;
+import java.sql.Statement;
 
 public class DaoAuthentification {
 
-	public static Boolean checkConnection(String login, String password) throws ClassNotFoundException, SQLException {
+	public static boolean checkConnection(String login, String password) throws ClassNotFoundException, SQLException {
 
-	public static Boolean selectById(String login, String password) throws ClassNotFoundException, SQLException {
 
 		boolean connected = false;
 		String sql = "select * from authentification where login= '" + login + "' AND password = '" + password + "'";
