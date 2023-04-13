@@ -79,7 +79,8 @@ public class DaoPatient {
 	}
 	
 	public void update(Patient p) throws ClassNotFoundException, SQLException{
-		String sql = "update patients set nom='"+p.getNom()+"', prenom='"+p.getPrenom()+"',age="+p.getAge()+" where id="+p.getId();
+		String sql = "update patients set nom='"+p.getNom()+"', prenom='"+p.getPrenom()+"',age="+p.getAge()+"',telephone="+p.getTelephone()
+		+"',adresse="+p.getAdresse()+" where id="+p.getId();
 		Class.forName("com.mysql.jdbc.Driver") ;
 		Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/hopital-obs", "root", "root");
 
