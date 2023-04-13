@@ -1,12 +1,15 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
+
+import dao.DaoPatient;
 
 public class Hopital {
 
 	private static Hopital instance;
 	private String secretaire;
-	private LinkedList<Patient> lstAttente;
+	private static LinkedList<Patient> lstAttente = new LinkedList<Patient>();
 
 	public Hopital(String secretaire) {
 		super();
@@ -20,18 +23,34 @@ public class Hopital {
 		return instance;
 	}
 
-	public void addPatient(Patient patient) {
+	public static LinkedList<Patient> getLstAttente() {
+		return lstAttente;
+	}
+
+	public void addPatient(Patient patient) throws ClassNotFoundException, SQLException {
 		DaoPatient dp = new DaoPatient();
-		dp.selectById();
-		dp.insert();
+
+		if (dp.selectById(patient.getId()) == null) {
+			dp.create(patient);
+		}
+
 		lstAttente.add(patient);
+		System.out.println("patient ajouter");
+	}
+
+	public void checkPatient(Patient patient) throws ClassNotFoundException, SQLException {
+		this.addPatient(patient);
+	}
+
+	public void createPatient(Patient patient) throws ClassNotFoundException, SQLException {
+		this.addPatient(patient);
 	}
 
 	public String showLstAttente() {
 		String res = "";
 
 		for (Patient e : lstAttente) {
-			res = "";
+			res += e + "\n";
 		}
 
 		return res;
@@ -39,7 +58,13 @@ public class Hopital {
 
 	public Patient showNextPatient() {
 		Patient p = lstAttente.peek();
-		System.out.println(p);
+
+		return p;
+	}
+
+	public Patient notif() {
+		Patient p = lstAttente.poll();
+		return p;
 	}
 
 }
