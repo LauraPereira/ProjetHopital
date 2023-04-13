@@ -16,29 +16,13 @@ public class Main {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 
-<<<<<<< HEAD
-		test1();
-	}
-	
-	static void test1() throws ClassNotFoundException, SQLException
-	{
-		
-		if(DaoAuthentification.checkConnection("Med1", "psw")) {
-			System.out.println("connecté");
-			System.out.println(DaoAuthentification.getMetier("Med2"));
-		}
-		
-			
-		else
-			System.out.println("échec connexion");
 
-		connexion();
-=======
 		// connexion();
 		// secretaire();
 		medecin(2);
->>>>>>> module-principal
 	}
+
+
 
 	static void connexion() throws ClassNotFoundException, SQLException {
 		Scanner clavierstr = new Scanner(System.in);
