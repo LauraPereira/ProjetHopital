@@ -27,14 +27,15 @@ public class Main {
 
 		switch (choix) {
 		case 1:
-			// A coder
-			// addToList();
+			// (laura ok)checkPatient()
+			// (laura ok) createPatient()
+			// (laura ok) addPatientToList()
 		case 2:
 			// A coder
-			// showList();
+			// laura ok showList();
 		case 3:
 			// A coder
-			// showNextPatient();
+			// laura ok showNextPatient();
 		case 4:
 			connexion();
 		}
