@@ -45,11 +45,6 @@ public class Visite {
 	}
 
 
-	public void setIdPatient(int idPatient) {
-		this.idPatient = idPatient;
-	}
-
-
 	public String getNomMedecin() {
 		return nomMedecin;
 	}	
@@ -57,11 +52,6 @@ public class Visite {
 	
 	public int getNumSalle() {
 		return numSalle;
-	}
-
-
-	public void setNumSalle(int numSalle) {
-		this.numSalle = numSalle;
 	}
 
 
@@ -73,11 +63,6 @@ public class Visite {
 
 	public String getDateVisite() {
 		return dateVisite;
-	}
-
-
-	public void setDateVisite(String dateVisite) {
-		this.dateVisite = dateVisite;
 	}
 
 
