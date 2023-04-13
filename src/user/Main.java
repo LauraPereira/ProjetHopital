@@ -1,11 +1,29 @@
 package user;
+import java.sql.SQLException;
+
+import dao.DaoAuthentification;
+
 
 import java.util.Scanner;
 
+import java.sql.SQLException;
+
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
+
+		test1();
+	}
+	
+	static void test1() throws ClassNotFoundException, SQLException
+	{
+		
+		if(DaoAuthentification.selectById("Med1", "psw"))
+			System.out.println("connecté");
+		else
+			System.out.println("échec connexion");
+
 		connexion();
 	}
 
@@ -22,7 +40,7 @@ public class Main {
 		System.out.println("Bienvenue dans l'interface secrétaire !\n\n" + "______________________________\n"
 				+ "1 - Ajouter un patient à la liste d'attente\n" + "2 - Afficher la liste d'attente\n"
 				+ "3 - Afficher le prochain patient de la liste d'attente\n" + "4 - Revenir au menu de connexion\n\n"
-						+ "Veuillez entrer votre choix");
+				+ "Veuillez entrer votre choix");
 		int choix = clavierint.nextInt();
 
 		switch (choix) {
@@ -40,29 +58,28 @@ public class Main {
 			connexion();
 		}
 	}
-		
-		
-		static void medecin() {
-			Scanner clavierint = new Scanner(System.in);
-			System.out.println("Bienvenue dans l'interface médecin !\n\n" + "______________________________\n"
-					+ "1 - Libérer la salle\n" + "2 - Afficher la liste d'attente\n"
-					+ "3 - Sauvegarder la liste des visites dans la BDD\n" + "4 - Revenir au menu de connexion\n\n"
-						+ "Veuillez entrer votre choix");
-			int choix = clavierint.nextInt();
 
-			switch (choix) {
-			case 1:
-				// A coder
-				// freeRoom();
-			case 2:
-				// A coder
-				// showList();
-			case 3:
-				// A coder
-				// saveVisitsList();
-			case 4:
-				connexion();
-			}
+	static void medecin() {
+		Scanner clavierint = new Scanner(System.in);
+		System.out.println("Bienvenue dans l'interface médecin !\n\n" + "______________________________\n"
+				+ "1 - Libérer la salle\n" + "2 - Afficher la liste d'attente\n"
+				+ "3 - Sauvegarder la liste des visites dans la BDD\n" + "4 - Revenir au menu de connexion\n\n"
+				+ "Veuillez entrer votre choix");
+		int choix = clavierint.nextInt();
+
+		switch (choix) {
+		case 1:
+			// A coder
+			// freeRoom();
+		case 2:
+			// A coder
+			// showList();
+		case 3:
+			// A coder
+			// saveVisitsList();
+		case 4:
+			connexion();
+		}
 
 	}
 
