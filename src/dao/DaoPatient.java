@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import model.Patient;
+
 public class DaoPatient {
 
 	public void create(Patient p) throws ClassNotFoundException, SQLException {
