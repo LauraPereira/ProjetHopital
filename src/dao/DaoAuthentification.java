@@ -1,18 +1,20 @@
 package dao;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.ResultSet;
+import com.mysql.jdbc.Statement;
 
 public class DaoAuthentification {
-	
-	public static boolean checkConnection(String login, String password) throws ClassNotFoundException, SQLException {
 
-		Boolean connected=false;
-		String sql = "select * from authentification where login= '"+login+"' AND password = '"+password+"'" ;
+	public static Boolean checkConnection(String login, String password) throws ClassNotFoundException, SQLException {
+
+	public static Boolean selectById(String login, String password) throws ClassNotFoundException, SQLException {
+
+		boolean connected = false;
+		String sql = "select * from authentification where login= '" + login + "' AND password = '" + password + "'";
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hopital-obs", "root", "root");
 
@@ -20,21 +22,20 @@ public class DaoAuthentification {
 
 		ResultSet rs = st.executeQuery(sql);
 
-		if(rs.next())
-			connected=true;
+		if (rs.next())
+			connected = true;
 		else
-			connected=false;
-		
+			connected = false;
+
 		return connected;
 
 	}
-	
-	
-	public static int getMetier(String login) throws ClassNotFoundException, SQLException{
-		
+
+	public static int getMetier(String login) throws ClassNotFoundException, SQLException {
+
 		int metier = 0;
-		
-		String sql = "select * from authentification where login= '"+login+"'";
+
+		String sql = "select * from authentification where login= '" + login + "'";
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hopital-obs", "root", "root");
 
@@ -42,13 +43,10 @@ public class DaoAuthentification {
 
 		ResultSet rs = st.executeQuery(sql);
 
-		if(rs.next())
-			metier= rs.getInt(4);
-			
+		if (rs.next())
+			metier = rs.getInt(4);
+
 		return metier;
 	}
-	
-	
-	
 
 }

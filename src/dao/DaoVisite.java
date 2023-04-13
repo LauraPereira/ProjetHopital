@@ -24,8 +24,7 @@ public class DaoVisite {
 		ps.setInt(1, v.getIdPatient());
 		ps.setString(2, v.getDateVisite());
 		ps.setString(3, v.getNomMedecin());
-		ps.setInt(4, v.getIdPatient() );
-		ps.setInt(5, v.getTarif());
+		ps.setInt(4, v.getIdPatient());
 
 		ps.executeUpdate();
 
@@ -33,12 +32,11 @@ public class DaoVisite {
 		conn.close();
 
 	}
-	
-	
+
 	public Visite selectById(int id) throws ClassNotFoundException, SQLException {
 
 		Visite v = null;
-		String sql = "select * from visites where id="+id;
+		String sql = "select * from visites where id=" + id;
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hopital-obs", "root", "root");
 
@@ -46,16 +44,16 @@ public class DaoVisite {
 
 		ResultSet rs = st.executeQuery(sql);
 
-		if(rs.next()){
-			v = new Visite(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getInt(4), rs.getInt(5), rs.getString(6));
-			
+		if (rs.next()) {
+			v = new Visite(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(6));
+
 		}
-				
+
 		conn.close();
 		return v;
 
 	}
-	
+
 	public ArrayList<Visite> selectAll() throws ClassNotFoundException, SQLException {
 
 		ArrayList<Visite> listeVisites = new ArrayList<Visite>();
@@ -66,41 +64,39 @@ public class DaoVisite {
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
 
-		
-		while (rs.next()){
-			Visite v = new Visite(rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getInt(4), rs.getInt(5), rs.getString(6));
+		while (rs.next()) {
+			Visite v = new Visite(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(6));
 			listeVisites.add(v);
 		}
-		
+
 		conn.close();
 		return listeVisites;
 
 	}
-	
-	public void update(Visite v) throws ClassNotFoundException, SQLException{
-		String sql = "update visites set idpatient='"+v.getIdPatient()+"', date='"+v.getDateVisite()+"',medecin="+v.getNomMedecin()
-		+"',num-salle="+v.getNumSalle()+"',tarif="+v.getTarif();
-		Class.forName("com.mysql.jdbc.Driver") ;
-		Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/hopital-obs", "root", "root");
+
+	public void update(Visite v) throws ClassNotFoundException, SQLException {
+		String sql = "update visites set idpatient='" + v.getIdPatient() + "', date='" + v.getDateVisite()
+				+ "',medecin=" + v.getNomMedecin() + "',num-salle=" + v.getNumSalle() + "',tarif=" + v.getTarif();
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hopital-obs", "root", "root");
 
 		Statement st = conn.createStatement();
-		st.executeUpdate(sql) ;
+		st.executeUpdate(sql);
 
 		System.out.print("UPDATE OK ");
 		conn.close();
 	}
-	
-	public void delete(int id) throws ClassNotFoundException, SQLException{
-		String sql = "delete from visites where id="+id;
-		Class.forName("com.mysql.jdbc.Driver") ;
-		Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/hopital-obs", "root", "root");
+
+	public void delete(int id) throws ClassNotFoundException, SQLException {
+		String sql = "delete from visites where id=" + id;
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hopital-obs", "root", "root");
 
 		Statement st = conn.createStatement();
-		st.executeUpdate(sql) ;
+		st.executeUpdate(sql);
 
 		System.out.print("DELETE OK ");
 		conn.close();
 	}
-	
 
 }

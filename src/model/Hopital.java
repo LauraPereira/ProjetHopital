@@ -28,18 +28,22 @@ public class Hopital {
 	}
 
 	public void addPatient(Patient patient) throws ClassNotFoundException, SQLException {
-		DaoPatient dp = new DaoPatient();
-
-		if (dp.selectById(patient.getId()) == null) {
-			dp.create(patient);
-		}
 
 		lstAttente.add(patient);
 		System.out.println("patient ajouter");
 	}
 
-	public void checkPatient(Patient patient) throws ClassNotFoundException, SQLException {
-		this.addPatient(patient);
+	public boolean checkPatient(Patient patient) throws ClassNotFoundException, SQLException {
+		boolean res = true;
+		DaoPatient dp = new DaoPatient();
+
+		if (dp.selectById(patient.getId()) == null) {
+			res = false;
+		} else {
+			this.addPatient(patient);
+			res = true;
+		}
+		return res;
 	}
 
 	public void createPatient(Patient patient) throws ClassNotFoundException, SQLException {
