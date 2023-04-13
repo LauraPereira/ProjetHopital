@@ -1,5 +1,9 @@
 package model;
 
+import java.sql.SQLException;
+
+import dao.DaoVisite;
+
 public class Medecin {
 
 	private String nom;
@@ -15,19 +19,22 @@ public class Medecin {
 		this.numSalle = numSalle;
 	}
 
-	public void changePatient() {
+	public void changePatient(Salle salle) {
 		Patient p = notifSalleVide();
-		Visite v1 = new Visite("date", p.getId(), nom, numSalle);
+		salle.addVisite(new Visite(p.getId(), nom, numSalle, "date"));
 	}
 
 	public Patient notifSalleVide() {
 		return Hopital.getInstance("secretaire").notif();
 	}
 
-	public void LstVisiteEnBase() {
-		createVisite();
+	public void LstVisiteEnBase(Salle salle) throws ClassNotFoundException, SQLException {
+		DaoVisite dv = new DaoVisite();
 
-		Hopital.getInstance("secretaire").showLstAttente();
+		for (Visite v : salle.getLstVisite()) {
+			dv.create(v);
+		}
+
 	}
 
 	public void showLstAttente() {

@@ -19,10 +19,8 @@ public class Salle {
 		return lstVisite;
 	}
 
-	public void CreateVisite() {
-		for (Visite v : lstVisite) {
-			v.create();
-		}
+	public void addVisite(Visite v) {
+		lstVisite.add(v);
 	}
 
 }
