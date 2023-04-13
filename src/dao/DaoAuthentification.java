@@ -9,6 +9,7 @@ import java.sql.Statement;
 
 public class DaoAuthentification {
 
+
 	public static boolean checkConnection(String login, String password) throws ClassNotFoundException, SQLException {
 
 
@@ -29,23 +30,24 @@ public class DaoAuthentification {
 		return connected;
 
 	}
+	
+	public static int getMetier(String login) throws ClassNotFoundException, SQLException{
 
-	public static int getMetier(String login) throws ClassNotFoundException, SQLException {
+        int metier = 0;
 
-		int metier = 0;
+        String sql = "select * from authentification where login= '"+login+"'";
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hopital-obs", "root", "root");
 
-		String sql = "select * from authentification where login= '" + login + "'";
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hopital-obs", "root", "root");
+        Statement st = conn.createStatement();
 
-		Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
 
-		ResultSet rs = st.executeQuery(sql);
+        if(rs.next())
+            metier= rs.getInt(4);
 
-		if (rs.next())
-			metier = rs.getInt(4);
+        return metier;
+    }
 
-		return metier;
-	}
 
 }
