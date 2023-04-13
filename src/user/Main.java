@@ -19,8 +19,12 @@ public class Main {
 	static void test1() throws ClassNotFoundException, SQLException
 	{
 		
-		if(DaoAuthentification.selectById("Med1", "psw"))
+		if(DaoAuthentification.checkConnection("Med1", "psw")) {
 			System.out.println("connecté");
+			System.out.println(DaoAuthentification.getMetier("Med2"));
+		}
+		
+			
 		else
 			System.out.println("échec connexion");
 
