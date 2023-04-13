@@ -28,8 +28,18 @@ public class Hopital {
 	}
 
 	public String showLstAttente() {
+		String res = "";
 
-		return "";
+		for (Patient e : lstAttente) {
+			res = "";
+		}
+
+		return res;
+	}
+
+	public Patient showNextPatient() {
+		Patient p = lstAttente.peek();
+		System.out.println(p);
 	}
 
 }
