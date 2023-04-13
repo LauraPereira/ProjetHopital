@@ -15,4 +15,23 @@ public class Medecin {
 		this.numSalle = numSalle;
 	}
 
+	public void changePatient() {
+		Patient p = notifSalleVide();
+		Visite v1 = new Visite("date", p.getId(), nom, numSalle);
+	}
+
+	public Patient notifSalleVide() {
+		return Hopital.getInstance("secretaire").notif();
+	}
+
+	public void LstVisiteEnBase() {
+		createVisite();
+
+		Hopital.getInstance("secretaire").showLstAttente();
+	}
+
+	public void showLstAttente() {
+		Hopital.getInstance("secretaire").showLstAttente();
+	}
+
 }
