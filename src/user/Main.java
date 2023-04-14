@@ -64,11 +64,10 @@ public class Main {
 
 			checkPatient();
 			break;
-
-		// (laura ok) addPatientToLine()
 		case 2:
-			// A coder
-			// showLine();
+
+			 showLine();
+			 break;
 		case 3:
 			// A coder
 			// laura ok showNextPatient();
@@ -83,14 +82,13 @@ public class Main {
 		int nss = clavierint.nextInt();
 		
 		if (Hopital.getInstance().checkPatient(nss)){
-			System.out.println("Le patient existe déjà dans la base de données et a été ajouté la la liste");
+			System.out.println("Le patient existe déjà dans la base de données. Il a été ajouté la la liste d'attente");
+			secretaire();
 		}
 		else{
 			System.out.println("Le patient n'est pas connu dans la base de données.");
 			createPatient(nss);
 		}
-
-
 	}
 
 	static void createPatient(int id) throws ClassNotFoundException, SQLException {
@@ -119,6 +117,7 @@ public class Main {
 			
 			// Ajoute en bdd et à la liste d'attente
 			Hopital.getInstance().createPatient(p);
+			secretaire();
 
 		}
 
@@ -126,10 +125,19 @@ public class Main {
 			// Ajoute en bdd et à la liste d'attente
 			Patient p = new Patient(id, nom, prenom, age);
 			Hopital.getInstance().createPatient(p);
+			secretaire();
 		}
 
 	}
 
+	
+	static void showLine(){
+		System.out.println("N°SS\tNom\tPrénom\tAge\tTél\tAdresse\n");
+		System.out.println(Hopital.getInstance().showLstAttente());
+		
+	}
+	
+	
 	static void medecin(int metier) throws ClassNotFoundException, SQLException {
 		Scanner clavierint = new Scanner(System.in);
 		System.out.println("Bienvenue dans l'interface médecin !\n" + "___________________________________________\n\n"

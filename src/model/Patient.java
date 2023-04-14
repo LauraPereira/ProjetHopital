@@ -53,7 +53,7 @@ public class Patient {
 
 	@Override
 	public String toString() {
-		return "Patient n°" + id + ", " + prenom + ", " + nom;
+		return  id + "\t" + prenom + "\t" + nom+"\t"+age +"\t"+telephone+"\t"+adresse;
 	}
 
 }

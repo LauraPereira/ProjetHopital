@@ -30,7 +30,7 @@ public class DaoPatient {
 
 		ps.executeUpdate();
 
-		System.out.print("INSERT OK ");
+//		System.out.print("INSERT OK ");
 		conn.close();
 
 	}
