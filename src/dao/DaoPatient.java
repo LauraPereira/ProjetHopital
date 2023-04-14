@@ -29,8 +29,6 @@ public class DaoPatient {
 		ps.setString(6, p.getAdresse());
 
 		ps.executeUpdate();
-
-//		System.out.print("INSERT OK ");
 		conn.close();
 
 	}

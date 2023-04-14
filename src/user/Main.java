@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import dao.DaoAuthentification;
 import dao.DaoPatient;
 import model.Hopital;
+import model.Medecin;
 import model.Patient;
+import model.Salle;
 import model.Visite;
 
 import java.util.ArrayList;
@@ -16,7 +18,6 @@ import java.sql.SQLException;
 public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
 
 		connexion();
 		// secretaire();
@@ -41,7 +42,7 @@ public class Main {
 
 				secretaire();
 			} else {
-				medecin(metier);
+				medecin(login, metier);
 			}
 		}
 
@@ -66,7 +67,8 @@ public class Main {
 			checkPatient();
 			break;
 		case 2:
-			showLine(0);
+			System.out.println(Hopital.getInstance().showLstAttente());
+			secretaire();
 			break;
 		case 3:
 			showNextPatient();
@@ -137,20 +139,28 @@ public class Main {
 		secretaire();
 	}
 
-	static void showLine(int metier) throws ClassNotFoundException, SQLException {
-		System.out.println(Hopital.getInstance().showLstAttente());
+	// static void showLine(int metier) throws ClassNotFoundException,
+	// SQLException {
+	// System.out.println(Hopital.getInstance().showLstAttente());
+	//
+	// // On renvoie vers l'interface secrétaire ou médecin en fonction
+	// // Du métier passé en paramètre
+	// if (metier == 0) {
+	// secretaire();
+	// } else {
+	// medecin(metier);
+	// }
+	//
+	// }
 
-		// On renvoie vers l'interface secrétaire ou médecin en fonction
-		// Du métier passé en paramètre
-		if (metier == 0) {
-			secretaire();
-		} else {
-			medecin(metier);
-		}
+	static void medecin(String login, int metier) throws ClassNotFoundException, SQLException {
 
-	}
+		// On récupère l'objet médecin grâce au login
+		Medecin m = new DaoAuthentification().getMedecinByLogin(login);
 
-	static void medecin(int metier) throws ClassNotFoundException, SQLException {
+		// On crée un objet salle
+		Salle s = new Salle(metier, m);
+
 		Scanner clavierint = new Scanner(System.in);
 		System.out.println("Bienvenue dans l'interface médecin " + metier
 				+ " !\n___________________________________________\n\n" + "1 - Libérer la salle\n"
@@ -160,37 +170,24 @@ public class Main {
 
 		switch (choix) {
 		case 1:
-			// A coder
-			freeRoom(metier);
+			m.changePatient(s);
+			System.out.println("Le patient suivant a été pris en consultation.\n\n");
+			medecin(login, metier);
 			break;
 		case 2:
-			showLine(metier);
+			// Utiliser l'objet medecin pour appeler showLstAttente
+			System.out.println(m.showLstAttente());
+			medecin(login, metier);
 			break;
 		case 3:
-			// A coder
-			// saveVisitsList();
+			m.LstVisiteEnBase(s);
+			medecin(login, metier);
+			System.out.println("Vous avez bien ajouté la liste suivante à la BDD.\n\n");
+			// Afficher la liste qui a été ajoutée
+			break;
 		case 4:
 			connexion();
 		}
-	}
-
-	static void freeRoom(int medecin) {
-		// On notif que la salle est libre
-		
-		
-		// On récupère l'id du prochain patient sur la liste
-		Patient p = Hopital.getInstance().showNextPatient();
-		int idP = p.getId();
-		
-		// On récupère infos médecin : nom
-//		String nomM = 
-		
-		// On crée une visite
-//		Visite v = new Visite (idP, );
-		
-		// On ajoute la visite à la liste
-		
-		//
 	}
 
 }

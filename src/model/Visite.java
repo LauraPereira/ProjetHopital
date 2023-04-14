@@ -59,7 +59,7 @@ public class Visite {
 	public void saveLstVisite(Salle s) throws ClassNotFoundException, SQLException {
 		DaoVisite dv = new DaoVisite();
 
-		if (s.getLstVisite().size() == 5) {
+		if (s.getLstVisite().size() == 3) {
 			for (Visite v : s.getLstVisite()) {
 				dv.create(v);
 			}
