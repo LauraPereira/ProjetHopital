@@ -1,12 +1,11 @@
 package user;
+
 import java.sql.SQLException;
-
-import dao.DaoAuthentification;
-
-
 import java.util.Scanner;
 
-import java.sql.SQLException;
+import dao.DaoAuthentification;
+import model.Medecin;
+import model.Salle;
 
 public class Main {
 
@@ -15,16 +14,14 @@ public class Main {
 
 		test1();
 	}
-	
-	static void test1() throws ClassNotFoundException, SQLException
-	{
-		
-		if(DaoAuthentification.checkConnection("Med1", "psw")) {
+
+	static void test1() throws ClassNotFoundException, SQLException {
+
+		if (DaoAuthentification.checkConnection("Med1", "psw")) {
 			System.out.println("connecté");
 			System.out.println(DaoAuthentification.getMetier("Med2"));
 		}
-		
-			
+
 		else
 			System.out.println("échec connexion");
 
