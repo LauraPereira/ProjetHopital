@@ -1,5 +1,6 @@
 package user;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import dao.DaoAuthentification;
@@ -17,14 +18,13 @@ import java.sql.SQLException;
 
 public class Main {
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
 
 		connexion();
-		// secretaire();
-		// medecin(2);
+
 	}
 
-	static void connexion() throws ClassNotFoundException, SQLException {
+	static void connexion() throws ClassNotFoundException, SQLException, IOException {
 		Scanner clavierstr = new Scanner(System.in);
 		System.out.println("Bienvenue à l'hôpital !\n\n" + "login :");
 		String login = clavierstr.nextLine();
@@ -53,7 +53,7 @@ public class Main {
 
 	}
 
-	static void secretaire() throws ClassNotFoundException, SQLException {
+	static void secretaire() throws ClassNotFoundException, SQLException, IOException {
 		Scanner clavierint = new Scanner(System.in);
 		System.out.println("Bienvenue dans l'interface secrétaire !\n"
 				+ "___________________________________________\n\n" + "1 - Ajouter un patient à la liste d'attente\n"
@@ -77,7 +77,7 @@ public class Main {
 		}
 	}
 
-	static void checkPatient() throws ClassNotFoundException, SQLException {
+	static void checkPatient() throws ClassNotFoundException, SQLException, IOException {
 		Scanner clavierint = new Scanner(System.in);
 		System.out.println("Quel est le numéro de Sécurité Sociale du patient ?");
 		int nss = clavierint.nextInt();
@@ -91,7 +91,7 @@ public class Main {
 		}
 	}
 
-	static void createPatient(int id) throws ClassNotFoundException, SQLException {
+	static void createPatient(int id) throws ClassNotFoundException, SQLException, IOException {
 		Scanner clavierstr = new Scanner(System.in);
 		Scanner clavierint = new Scanner(System.in);
 		System.out.println("Nom :");
@@ -130,28 +130,14 @@ public class Main {
 
 	}
 
-	static void showNextPatient() throws ClassNotFoundException, SQLException {
+	static void showNextPatient() throws ClassNotFoundException, SQLException, IOException {
 
-		System.out.println("N°SS\tNom\tPrénom\tAge\tTél\tAdresse\n");
+		System.out.println("N°SS\tPrénom\tNom\tAge\tTél\tAdresse\n");
 		System.out.println(Hopital.getInstance().showNextPatient());
 		secretaire();
 	}
 
-	// static void showLine(int metier) throws ClassNotFoundException,
-	// SQLException {
-	// System.out.println(Hopital.getInstance().showLstAttente());
-	//
-	// // On renvoie vers l'interface secrétaire ou médecin en fonction
-	// // Du métier passé en paramètre
-	// if (metier == 0) {
-	// secretaire();
-	// } else {
-	// medecin(metier);
-	// }
-	//
-	// }
-
-	static void medecin(String login, int metier) throws ClassNotFoundException, SQLException {
+	static void medecin(String login, int metier) throws ClassNotFoundException, SQLException, IOException {
 
 		// On récupère l'objet médecin grâce au login
 		Medecin m = new DaoAuthentification().getMedecinByLogin(login);
@@ -169,8 +155,9 @@ public class Main {
 		switch (choix) {
 		case 1:
 			try {
-				m.changePatient(s);
-				System.out.println("Le patient suivant a été pris en consultation.\n\n");
+				Patient p = m.changePatient(s);
+				System.out
+						.println("Le patient " + p.getPrenom() + " " + p.getNom() + " a été pris en consultation.\n\n");
 			} catch (NullPointerException e) {
 				System.out.println("Aucun patient dans la file d'attente");
 			}
@@ -182,8 +169,9 @@ public class Main {
 			medecin(login, metier);
 			break;
 		case 3:
-			if (m.LstVisiteEnBase(s) != "vide") {
-				System.out.println(m.LstVisiteEnBase(s));
+			String res = m.LstVisiteEnBase(s);
+			if (res != "vide") {
+				System.out.println(res);
 			} else {
 				System.out.println("Toutes les visites ont déjà été envoyé en base.");
 			}

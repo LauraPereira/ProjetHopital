@@ -30,7 +30,6 @@ public class DaoVisite {
 
 		ps.executeUpdate();
 
-		System.out.print("INSERT OK ");
 		conn.close();
 
 	}
@@ -85,7 +84,6 @@ public class DaoVisite {
 		Statement st = conn.createStatement();
 		st.executeUpdate(sql);
 
-		System.out.print("UPDATE OK ");
 		conn.close();
 	}
 
@@ -97,7 +95,6 @@ public class DaoVisite {
 		Statement st = conn.createStatement();
 		st.executeUpdate(sql);
 
-		System.out.print("DELETE OK ");
 		conn.close();
 	}
 

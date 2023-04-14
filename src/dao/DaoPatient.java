@@ -85,7 +85,6 @@ public class DaoPatient {
 		Statement st = conn.createStatement();
 		st.executeUpdate(sql);
 
-		System.out.print("UPDATE OK ");
 		conn.close();
 	}
 
@@ -97,7 +96,6 @@ public class DaoPatient {
 		Statement st = conn.createStatement();
 		st.executeUpdate(sql);
 
-		System.out.print("DELETE OK ");
 		conn.close();
 	}
 

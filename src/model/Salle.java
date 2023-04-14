@@ -16,8 +16,12 @@ public class Salle {
 	}
 
 	public ArrayList<Visite> getLstVisite() {
-	
+
 		return lstVisite;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public void addVisite(Visite v) {

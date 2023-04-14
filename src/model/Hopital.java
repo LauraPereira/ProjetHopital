@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
@@ -27,13 +28,13 @@ public class Hopital {
 		return lstAttente;
 	}
 
-	public void addPatient(Patient patient) throws ClassNotFoundException, SQLException {
-
+	public void addPatient(Patient patient) throws ClassNotFoundException, SQLException, IOException {
+		AppliFichierTexte.fileWriter(patient);
 		lstAttente.add(patient);
 
 	}
 
-	public boolean checkPatient(int id) throws ClassNotFoundException, SQLException {
+	public boolean checkPatient(int id) throws ClassNotFoundException, SQLException, IOException {
 		boolean res = true;
 		DaoPatient dp = new DaoPatient();
 
@@ -47,7 +48,7 @@ public class Hopital {
 		return res;
 	}
 
-	public void createPatient(Patient patient) throws ClassNotFoundException, SQLException {
+	public void createPatient(Patient patient) throws ClassNotFoundException, SQLException, IOException {
 		// Crée en BDD
 		DaoPatient dp = new DaoPatient();
 		dp.create(patient);

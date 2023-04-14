@@ -22,13 +22,15 @@ public class Medecin {
 		this.numSalle = numSalle;
 	}
 
-	public void changePatient(Salle salle) throws ClassNotFoundException, SQLException {
+	public Patient changePatient(Salle salle) throws ClassNotFoundException, SQLException {
 		Patient p = notifSalleVide();
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date date = new Date();
 		Visite v = new Visite(p.getId(), nom, numSalle, format.format(date).toString());
 		salle.addVisite(v);
 		v.saveLstVisite(salle);
+
+		return p;
 	}
 
 	public Patient notifSalleVide() {
