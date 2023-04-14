@@ -8,7 +8,7 @@ public class Salle {
 	private Medecin med;
 	private static ArrayList<Visite> lstVisite = new ArrayList<Visite>();
 
-	public Salle(int id, Medecin med, ArrayList<Visite> lstVisite) {
+	public Salle(int id, Medecin med) {
 		super();
 		this.id = id;
 		this.med = med;
@@ -21,6 +21,10 @@ public class Salle {
 
 	public void addVisite(Visite v) {
 		lstVisite.add(v);
+	}
+
+	public void viderLst() {
+		lstVisite.clear();
 	}
 
 }

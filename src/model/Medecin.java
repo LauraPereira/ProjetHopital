@@ -1,11 +1,9 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import dao.DaoVisite;
 
@@ -26,7 +24,9 @@ public class Medecin {
 
 	public void changePatient(Salle salle) {
 		Patient p = notifSalleVide();
-		salle.addVisite(new Visite(p.getId(), nom, numSalle, "date"));
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Date date = new Date();
+		salle.addVisite(new Visite(p.getId(), nom, numSalle, format.format(date).toString()));
 	}
 
 	public Patient notifSalleVide() {
@@ -39,6 +39,8 @@ public class Medecin {
 		for (Visite v : salle.getLstVisite()) {
 			dv.create(v);
 		}
+
+		salle.viderLst();
 
 	}
 

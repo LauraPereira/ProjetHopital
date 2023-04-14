@@ -63,6 +63,7 @@ public class Visite {
 			for (Visite v : s.getLstVisite()) {
 				dv.create(v);
 			}
+			s.viderLst();
 		}
 
 	}
