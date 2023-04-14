@@ -69,8 +69,8 @@ public class Main {
 			 showLine();
 			 break;
 		case 3:
-			// A coder
-			// laura ok showNextPatient();
+			showNextPatient();
+			break;
 		case 4:
 			connexion();
 		}
@@ -129,11 +129,20 @@ public class Main {
 		}
 
 	}
+	
+	static void showNextPatient() throws ClassNotFoundException, SQLException {
+		System.out.println("N°SS\tNom\tPrénom\tAge\tTél\tAdresse\n");
+		System.out.println(Hopital.getInstance().showNextPatient());
+		secretaire();
+	}
 
 	
-	static void showLine(){
-		System.out.println("N°SS\tNom\tPrénom\tAge\tTél\tAdresse\n");
+	static void showLine() throws ClassNotFoundException, SQLException{
 		System.out.println(Hopital.getInstance().showLstAttente());
+		
+		secretaire();
+		// Il faudra passer en paramètre le métier de la personne qui appelle showLine
+		// Afin de renvoyer vers la bonne fonction secretaire() ou medecin()
 		
 	}
 	

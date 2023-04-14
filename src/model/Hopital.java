@@ -58,7 +58,7 @@ public class Hopital {
 	}
 
 	public String showLstAttente() {
-		String res = "";
+		String res = "N°SS\tNom\tPrénom\tAge\tTél\tAdresse\n";
 //		System.out.println(lstAttente.size());
 
 		for (Patient e : lstAttente) {
