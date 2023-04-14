@@ -63,7 +63,6 @@ public class Main {
 
 		switch (choix) {
 		case 1:
-
 			checkPatient();
 			break;
 		case 2:
@@ -132,8 +131,7 @@ public class Main {
 	}
 
 	static void showNextPatient() throws ClassNotFoundException, SQLException {
-		// ! A coder
-		// System.out.println("Nombre de patients dans la file d'attente :");
+
 		System.out.println("N°SS\tNom\tPrénom\tAge\tTél\tAdresse\n");
 		System.out.println(Hopital.getInstance().showNextPatient());
 		secretaire();
@@ -170,8 +168,12 @@ public class Main {
 
 		switch (choix) {
 		case 1:
-			m.changePatient(s);
-			System.out.println("Le patient suivant a été pris en consultation.\n\n");
+			try {
+				m.changePatient(s);
+				System.out.println("Le patient suivant a été pris en consultation.\n\n");
+			} catch (NullPointerException e) {
+				System.out.println("Aucun patient dans la file d'attente");
+			}
 			medecin(login, metier);
 			break;
 		case 2:
@@ -180,9 +182,12 @@ public class Main {
 			medecin(login, metier);
 			break;
 		case 3:
-			m.LstVisiteEnBase(s);
+			if (m.LstVisiteEnBase(s) != "vide") {
+				System.out.println(m.LstVisiteEnBase(s));
+			} else {
+				System.out.println("Toutes les visites ont déjà été envoyé en base.");
+			}
 			medecin(login, metier);
-			System.out.println("Vous avez bien ajouté la liste suivante à la BDD.\n\n");
 			// Afficher la liste qui a été ajoutée
 			break;
 		case 4:

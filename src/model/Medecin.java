@@ -23,33 +23,33 @@ public class Medecin {
 	}
 
 	public void changePatient(Salle salle) throws ClassNotFoundException, SQLException {
-		try {
-			Patient p = notifSalleVide();
-			DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-			Date date = new Date();
-			Visite v = new Visite(p.getId(), nom, numSalle, format.format(date).toString());
-			salle.addVisite(v);
-			v.saveLstVisite(salle);
-		} catch (NullPointerException e) {
-			System.out.println("Aucun patient dans la file d'attente");
-		}
+		Patient p = notifSalleVide();
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Date date = new Date();
+		Visite v = new Visite(p.getId(), nom, numSalle, format.format(date).toString());
+		salle.addVisite(v);
+		v.saveLstVisite(salle);
 	}
 
 	public Patient notifSalleVide() {
 		return Hopital.getInstance().notif();
 	}
 
-	public void LstVisiteEnBase(Salle salle) throws ClassNotFoundException, SQLException {
+	public String LstVisiteEnBase(Salle salle) throws ClassNotFoundException, SQLException {
 		DaoVisite dv = new DaoVisite();
+		String res = "Liste des patients envoyés en base de donnée : \n";
 
-		for (Visite v : salle.getLstVisite()) {
-			dv.create(v);
+		if (salle.getLstVisite().size() != 0) {
+			for (Visite v : salle.getLstVisite()) {
+				dv.create(v);
+				res += v + "\n";
+			}
+			salle.viderLst();
+			return res;
+		} else {
+			return "vide";
 		}
-
-		salle.viderLst();
-
 	}
-	
 
 	public String showLstAttente() {
 		return Hopital.getInstance().showLstAttente();

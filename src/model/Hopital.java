@@ -57,13 +57,15 @@ public class Hopital {
 
 	public String showLstAttente() {
 		String res = "N°SS\tNom\tPrénom\tAge\tTél\tAdresse\n";
-//		System.out.println(lstAttente.size());
+		// System.out.println(lstAttente.size());
+		int i = 0;
 
 		for (Patient e : lstAttente) {
 			res += e + "\n";
+			i++;
 		}
 
-		return res;
+		return res += "Nombre de patient en attente : " + i;
 	}
 
 	public Patient showNextPatient() {
