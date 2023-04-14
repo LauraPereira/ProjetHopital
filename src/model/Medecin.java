@@ -22,11 +22,17 @@ public class Medecin {
 		this.numSalle = numSalle;
 	}
 
-	public void changePatient(Salle salle) {
-		Patient p = notifSalleVide();
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		Date date = new Date();
-		salle.addVisite(new Visite(p.getId(), nom, numSalle, format.format(date).toString()));
+	public void changePatient(Salle salle) throws ClassNotFoundException, SQLException {
+		try {
+			Patient p = notifSalleVide();
+			DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+			Date date = new Date();
+			Visite v = new Visite(p.getId(), nom, numSalle, format.format(date).toString());
+			salle.addVisite(v);
+			v.saveLstVisite(salle);
+		} catch (NullPointerException e) {
+			System.out.println("Aucun patient dans la file d'attente");
+		}
 	}
 
 	public Patient notifSalleVide() {

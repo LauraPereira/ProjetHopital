@@ -30,7 +30,7 @@ public class Hopital {
 	public void addPatient(Patient patient) throws ClassNotFoundException, SQLException {
 
 		lstAttente.add(patient);
-		System.out.println("patient ajouter");
+
 	}
 
 	public boolean checkPatient(int id) throws ClassNotFoundException, SQLException {

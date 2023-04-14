@@ -1,20 +1,18 @@
 package user;
 
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import dao.DaoAuthentification;
-import dao.DaoPatient;
 import model.Hopital;
+import model.Medecin;
 import model.Patient;
-
-import java.util.ArrayList;
-import java.util.Scanner;
+import model.Salle;
 
 public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
-
 		secretaire();
 	}
 
@@ -27,7 +25,7 @@ public class Main {
 
 		if (DaoAuthentification.checkConnection(login, mdp)) {
 			System.out.println("connecté\n\n");
-			
+
 			Hopital.getInstance();
 
 			int metier = DaoAuthentification.getMetier(login);
@@ -77,15 +75,13 @@ public class Main {
 		Scanner clavierint = new Scanner(System.in);
 		System.out.println("Quel est le numéro de Sécurité Sociale du patient ?");
 		int nss = clavierint.nextInt();
-		
-		if (Hopital.getInstance().checkPatient(nss)){
+
+		if (Hopital.getInstance().checkPatient(nss)) {
 			System.out.println("Le patient existe déjà dans la base de données et a été ajouté la la liste");
-		}
-		else{
+		} else {
 			System.out.println("Le patient n'est pas connu dans la base de données.");
 			createPatient(nss);
 		}
-
 
 	}
 
@@ -110,9 +106,9 @@ public class Main {
 			String tel = clavierstr.nextLine();
 			System.out.println("Adresse :");
 			String adresse = clavierstr.nextLine();
-			
+
 			Patient p = new Patient(id, nom, prenom, age, tel, adresse);
-			
+
 			// Ajoute en bdd et à la liste d'attente
 			Hopital.getInstance().createPatient(p);
 
