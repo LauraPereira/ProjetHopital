@@ -17,9 +17,9 @@ public class Main {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 
-//		connexion();
-		 secretaire();
-		// medecin(2);
+		connexion();
+//		 secretaire();
+//		 medecin(2);
 	}
 
 	static void connexion() throws ClassNotFoundException, SQLException {
@@ -65,8 +65,7 @@ public class Main {
 			checkPatient();
 			break;
 		case 2:
-
-			 showLine();
+			 showLine(0);
 			 break;
 		case 3:
 			showNextPatient();
@@ -137,12 +136,17 @@ public class Main {
 	}
 
 	
-	static void showLine() throws ClassNotFoundException, SQLException{
+	static void showLine(int metier) throws ClassNotFoundException, SQLException{
 		System.out.println(Hopital.getInstance().showLstAttente());
 		
-		secretaire();
-		// Il faudra passer en paramètre le métier de la personne qui appelle showLine
-		// Afin de renvoyer vers la bonne fonction secretaire() ou medecin()
+		// On renvoie vers l'interface secrétaire ou médecin en fonction
+		// Du métier passé en paramètre
+		if (metier == 0){
+			secretaire();
+		}
+		else{
+			medecin(metier);
+		}
 		
 	}
 	
@@ -160,8 +164,8 @@ public class Main {
 			// A coder
 			// freeRoom();
 		case 2:
-			// A coder
-			// showLine();
+			 showLine(metier);
+			 break;
 		case 3:
 			// A coder
 			// saveVisitsList();
