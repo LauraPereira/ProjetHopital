@@ -1,6 +1,11 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import dao.DaoVisite;
 
@@ -25,7 +30,7 @@ public class Medecin {
 	}
 
 	public Patient notifSalleVide() {
-		return Hopital.getInstance("secretaire").notif();
+		return Hopital.getInstance().notif();
 	}
 
 	public void LstVisiteEnBase(Salle salle) throws ClassNotFoundException, SQLException {
@@ -38,7 +43,7 @@ public class Medecin {
 	}
 
 	public void showLstAttente() {
-		Hopital.getInstance("secretaire").showLstAttente();
+		Hopital.getInstance().showLstAttente();
 	}
 
 }
