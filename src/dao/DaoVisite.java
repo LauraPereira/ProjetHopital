@@ -14,17 +14,19 @@ public class DaoVisite {
 
 	public void create(Visite v) throws ClassNotFoundException, SQLException {
 
-		String sql = "insert into visites values (?,?,?,?,?)";
+		String sql = "insert into visites values (?,?,?,?,?,?)";
 
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hopital-obs", "root", "root");
 
 		PreparedStatement ps = conn.prepareStatement(sql);
 
-		ps.setInt(1, v.getIdPatient());
-		ps.setString(2, v.getDateVisite());
-		ps.setString(3, v.getNomMedecin());
-		ps.setInt(4, v.getIdPatient());
+		ps.setInt(1, 0);
+		ps.setInt(2, v.getIdPatient());
+		ps.setString(3, v.getDateVisite());
+		ps.setString(4, v.getNomMedecin());
+		ps.setInt(5, v.getIdPatient());
+		ps.setInt(6, v.getTarif());
 
 		ps.executeUpdate();
 

@@ -9,9 +9,7 @@ import java.sql.Statement;
 
 public class DaoAuthentification {
 
-
 	public static boolean checkConnection(String login, String password) throws ClassNotFoundException, SQLException {
-
 
 		boolean connected = false;
 		String sql = "select * from authentification where login= '" + login + "' AND password = '" + password + "'";

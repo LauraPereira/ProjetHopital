@@ -1,11 +1,9 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import dao.DaoVisite;
 
@@ -24,9 +22,17 @@ public class Medecin {
 		this.numSalle = numSalle;
 	}
 
-	public void changePatient(Salle salle) {
-		Patient p = notifSalleVide();
-		salle.addVisite(new Visite(p.getId(), nom, numSalle, "date"));
+	public void changePatient(Salle salle) throws ClassNotFoundException, SQLException {
+		try {
+			Patient p = notifSalleVide();
+			DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+			Date date = new Date();
+			Visite v = new Visite(p.getId(), nom, numSalle, format.format(date).toString());
+			salle.addVisite(v);
+			v.saveLstVisite(salle);
+		} catch (NullPointerException e) {
+			System.out.println("Aucun patient dans la file d'attente");
+		}
 	}
 
 	public Patient notifSalleVide() {
@@ -39,6 +45,8 @@ public class Medecin {
 		for (Visite v : salle.getLstVisite()) {
 			dv.create(v);
 		}
+
+		salle.viderLst();
 
 	}
 
