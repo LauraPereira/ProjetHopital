@@ -41,6 +41,12 @@ public class Medecin {
 		}
 
 	}
+	
+	
+
+	public String getNom() {
+		return nom;
+	}
 
 	public void showLstAttente() {
 		Hopital.getInstance().showLstAttente();

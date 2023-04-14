@@ -6,6 +6,7 @@ import dao.DaoAuthentification;
 import dao.DaoPatient;
 import model.Hopital;
 import model.Patient;
+import model.Visite;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,8 +19,8 @@ public class Main {
 		// TODO Auto-generated method stub
 
 		connexion();
-//		 secretaire();
-//		 medecin(2);
+		// secretaire();
+		// medecin(2);
 	}
 
 	static void connexion() throws ClassNotFoundException, SQLException {
@@ -31,7 +32,7 @@ public class Main {
 
 		if (DaoAuthentification.checkConnection(login, mdp)) {
 			System.out.println("connecté\n\n");
-			
+
 			Hopital.getInstance();
 
 			int metier = DaoAuthentification.getMetier(login);
@@ -65,8 +66,8 @@ public class Main {
 			checkPatient();
 			break;
 		case 2:
-			 showLine(0);
-			 break;
+			showLine(0);
+			break;
 		case 3:
 			showNextPatient();
 			break;
@@ -79,12 +80,11 @@ public class Main {
 		Scanner clavierint = new Scanner(System.in);
 		System.out.println("Quel est le numéro de Sécurité Sociale du patient ?");
 		int nss = clavierint.nextInt();
-		
-		if (Hopital.getInstance().checkPatient(nss)){
+
+		if (Hopital.getInstance().checkPatient(nss)) {
 			System.out.println("Le patient existe déjà dans la base de données. Il a été ajouté la la liste d'attente");
 			secretaire();
-		}
-		else{
+		} else {
 			System.out.println("Le patient n'est pas connu dans la base de données.");
 			createPatient(nss);
 		}
@@ -111,9 +111,9 @@ public class Main {
 			String tel = clavierstr.nextLine();
 			System.out.println("Adresse :");
 			String adresse = clavierstr.nextLine();
-			
+
 			Patient p = new Patient(id, nom, prenom, age, tel, adresse);
-			
+
 			// Ajoute en bdd et à la liste d'attente
 			Hopital.getInstance().createPatient(p);
 			secretaire();
@@ -128,44 +128,44 @@ public class Main {
 		}
 
 	}
-	
+
 	static void showNextPatient() throws ClassNotFoundException, SQLException {
+		// ! A coder
+		// System.out.println("Nombre de patients dans la file d'attente :");
 		System.out.println("N°SS\tNom\tPrénom\tAge\tTél\tAdresse\n");
 		System.out.println(Hopital.getInstance().showNextPatient());
 		secretaire();
 	}
 
-	
-	static void showLine(int metier) throws ClassNotFoundException, SQLException{
+	static void showLine(int metier) throws ClassNotFoundException, SQLException {
 		System.out.println(Hopital.getInstance().showLstAttente());
-		
+
 		// On renvoie vers l'interface secrétaire ou médecin en fonction
 		// Du métier passé en paramètre
-		if (metier == 0){
+		if (metier == 0) {
 			secretaire();
-		}
-		else{
+		} else {
 			medecin(metier);
 		}
-		
+
 	}
-	
-	
+
 	static void medecin(int metier) throws ClassNotFoundException, SQLException {
 		Scanner clavierint = new Scanner(System.in);
-		System.out.println("Bienvenue dans l'interface médecin !\n" + "___________________________________________\n\n"
-				+ "1 - Libérer la salle\n" + "2 - Afficher la liste d'attente\n"
-				+ "3 - Sauvegarder la liste des visites dans la BDD\n" + "4 - Revenir au menu de connexion\n\n"
-				+ "Veuillez entrer votre choix");
+		System.out.println("Bienvenue dans l'interface médecin " + metier
+				+ " !\n___________________________________________\n\n" + "1 - Libérer la salle\n"
+				+ "2 - Afficher la liste d'attente\n" + "3 - Sauvegarder la liste des visites dans la BDD\n"
+				+ "4 - Revenir au menu de connexion\n\n" + "Veuillez entrer votre choix");
 		int choix = clavierint.nextInt();
 
 		switch (choix) {
 		case 1:
 			// A coder
-			// freeRoom();
+			freeRoom(metier);
+			break;
 		case 2:
-			 showLine(metier);
-			 break;
+			showLine(metier);
+			break;
 		case 3:
 			// A coder
 			// saveVisitsList();
@@ -174,17 +174,22 @@ public class Main {
 		}
 	}
 
-	// ! Ici on récupère la liste des patients en BDD mais pas la liste des
-	// patients en file d'attente
-	// static void showList() throws ClassNotFoundException, SQLException {
-	//
-	// System.out.println("Id\tNom\tPrénom\tAge\tTéléphone\tAdresse\n");
-	// ArrayList<Patient> reponse = new DaoPatient().selectAll();
-	// for (Patient p : reponse)
-	// System.out.println(p.getId() + "\t" + p.getNom() + "\t" + p.getPrenom() +
-	// "\t" + p.getAge() + "\t"
-	// + p.getTelephone() + "\t" + p.getAdresse());
-	//
-	// }
+	static void freeRoom(int medecin) {
+		// On notif que la salle est libre
+		
+		// On récupère l'id du prochain patient sur la liste
+		Patient p = Hopital.getInstance().showNextPatient();
+		int idP = p.getId();
+		
+		// On récupère infos médecin : nom
+//		String nomM = 
+		
+		// On crée une visite
+//		Visite v = new Visite (idP, );
+		
+		// On ajoute la visite à la liste
+		
+		//
+	}
 
 }
