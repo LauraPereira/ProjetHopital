@@ -177,6 +177,7 @@ public class Main {
 	static void freeRoom(int medecin) {
 		// On notif que la salle est libre
 		
+		
 		// On récupère l'id du prochain patient sur la liste
 		Patient p = Hopital.getInstance().showNextPatient();
 		int idP = p.getId();
