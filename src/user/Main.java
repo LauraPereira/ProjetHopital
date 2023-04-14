@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import dao.DaoAuthentification;
 import dao.DaoPatient;
+import model.Hopital;
 import model.Patient;
 
 import java.util.ArrayList;
@@ -16,13 +17,10 @@ public class Main {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 
-
-		// connexion();
-		// secretaire();
-		medecin(2);
+//		connexion();
+		 secretaire();
+		// medecin(2);
 	}
-
-
 
 	static void connexion() throws ClassNotFoundException, SQLException {
 		Scanner clavierstr = new Scanner(System.in);
@@ -33,10 +31,13 @@ public class Main {
 
 		if (DaoAuthentification.checkConnection(login, mdp)) {
 			System.out.println("connecté\n\n");
+			
+			Hopital.getInstance();
 
 			int metier = DaoAuthentification.getMetier(login);
 
 			if (metier == 0) {
+
 				secretaire();
 			} else {
 				medecin(metier);
@@ -80,19 +81,15 @@ public class Main {
 		Scanner clavierint = new Scanner(System.in);
 		System.out.println("Quel est le numéro de Sécurité Sociale du patient ?");
 		int nss = clavierint.nextInt();
-
-		Patient p = new DaoPatient().selectById(nss);
-
-		if (p != null) {
-			System.out.println("Le patient existe déjà dans la base de données.");
-
-		} else {
+		
+		if (Hopital.getInstance().checkPatient(nss)){
+			System.out.println("Le patient existe déjà dans la base de données et a été ajouté la la liste");
+		}
+		else{
 			System.out.println("Le patient n'est pas connu dans la base de données.");
 			createPatient(nss);
 		}
 
-		// ! Ajouter le patient à la liste d'attente
-		// ! addPatientToList(int nss)
 
 	}
 
@@ -117,13 +114,18 @@ public class Main {
 			String tel = clavierstr.nextLine();
 			System.out.println("Adresse :");
 			String adresse = clavierstr.nextLine();
-
-			new DaoPatient().create(new Patient(id, nom, prenom, age, tel, adresse));
+			
+			Patient p = new Patient(id, nom, prenom, age, tel, adresse);
+			
+			// Ajoute en bdd et à la liste d'attente
+			Hopital.getInstance().createPatient(p);
 
 		}
 
 		else {
-			new DaoPatient().create(new Patient(id, nom, prenom, age));
+			// Ajoute en bdd et à la liste d'attente
+			Patient p = new Patient(id, nom, prenom, age);
+			Hopital.getInstance().createPatient(p);
 		}
 
 	}

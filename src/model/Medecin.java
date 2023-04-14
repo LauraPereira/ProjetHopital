@@ -30,7 +30,7 @@ public class Medecin {
 	}
 
 	public Patient notifSalleVide() {
-		return Hopital.getInstance("secretaire").notif();
+		return Hopital.getInstance().notif();
 	}
 
 	public void LstVisiteEnBase(Salle salle) throws ClassNotFoundException, SQLException {
@@ -43,7 +43,7 @@ public class Medecin {
 	}
 
 	public void showLstAttente() {
-		Hopital.getInstance("secretaire").showLstAttente();
+		Hopital.getInstance().showLstAttente();
 	}
 
 }

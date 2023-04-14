@@ -15,13 +15,15 @@ public class Hopital {
 		super();
 		this.secretaire = secretaire;
 	}
-
-	public static Hopital getInstance(String secretaire) {
+	
+	public static Hopital getInstance() {
 		if (instance == null) {
-			instance = new Hopital(secretaire);
+			instance = new Hopital("toto");
 		}
 		return instance;
 	}
+
+
 
 	public static LinkedList<Patient> getLstAttente() {
 		return lstAttente;
@@ -33,20 +35,25 @@ public class Hopital {
 		System.out.println("patient ajouter");
 	}
 
-	public boolean checkPatient(Patient patient) throws ClassNotFoundException, SQLException {
+	public boolean checkPatient(int id) throws ClassNotFoundException, SQLException {
 		boolean res = true;
 		DaoPatient dp = new DaoPatient();
 
-		if (dp.selectById(patient.getId()) == null) {
+		if (dp.selectById(id) == null) {
 			res = false;
 		} else {
-			this.addPatient(patient);
+			
+			this.addPatient(dp.selectById(id));
 			res = true;
 		}
 		return res;
 	}
 
 	public void createPatient(Patient patient) throws ClassNotFoundException, SQLException {
+		// Crée en BDD
+		DaoPatient dp = new DaoPatient();
+        dp.create(patient);
+        // Ajoute à la liste d'attente
 		this.addPatient(patient);
 	}
 
